@@ -32,14 +32,11 @@
   (substring date-string 1 -1))
 
 (defun org-agenda-show-deadlines--insert-deadlines ()
-  (interactive)
   (goto-char (point-min))
   (cl-loop with padding-char = (string-to-char org-agenda-show-deadlines-fill-char)
 	   do (org-agenda-next-item 1)
-	   ;;  `org-agenda-next-item' does not return `nil' at the last item
-	   ;; so need to check it manually.
-	   until (save-excursion (forward-line)
-				 (eobp))
+	   until (save-excursion (forward-line)  ;; `org-agenda-next-item' does not return `nil' at the last item
+				 (eobp))	 ;; so need to check it manually.
 	   do (when-let* ((deadline (org-agenda-with-point-at-orig-entry nil (cdar (org-entry-properties (point) "DEADLINE"))))
 			  (deadline (->> deadline
 					 (ts-parse-org)
