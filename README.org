@@ -2,20 +2,23 @@
 
 Show deadlines in org-agenda buffers. 
 
-* Installation
-This package requires [[https://github.com/alphapapa/ts.el][ts.el]]
-With that installed, put =org-agenda-show-deadlines.el= in your load path, and:
-~(require 'org-agenda-show-deadlines)~ or use =use-package= to the same effect. 
+* Installation / Requirements
+This package requires [[https://github.com/alphapapa/ts.el][ts.el]]. 
+
+Put =org-agenda-show-deadlines.el= in your load path, and ~(require 'org-agenda-show-deadlines)~ or use =use-package= to the same effect. 
 * Usage
 Toggle showing  deadlines with =(org-agenda-show-deadlines-mode)=. The sole effect of this the minor mode is to add a function to =org-agenda-finalize-hook=. 
+
+Enabling the mode will not refresh the agenda, refresh manually when toggling on or off. 
 * Customization
 The following variables can be customized:
-| Custom variable                                 | Description                                                                                                                            |
-| ~org-agenda-show-deadlines-column~                | The column in which the deadline will appear. If this creates a collision with agenda text, it will generate an error. =120= by default. |
-| ~org-agenda-show-deadlines-next-line-p~           | Whether the deadlines are inserted on the line following an agenda entry. =Nil= by default.                                              |
-| ~org-agenda-show-deadlines-fill-char~             | Charater to precede the deadline. =.= by default. =_= also works. Use a space for no fill.                                                 |
-| ~org-agenda-show-deadlines-date-format~           | Format to use to display the deadline date. Follows the format of =format-time-string=. =%Y-%m-%d= i.e., =YYYY-MM-DD= by default.            |
-| ~org-agenda-show-deadlines-final-change-function~ | A user-supplied function to apply any changes to the deadline string before it is inserted. =Nil= by default.                            |
+| Custom variable                                 | Description                                                                                                                      |
+| ~org-agenda-show-deadlines-column~                | The column in which the deadline will appear. If this creates a collision with agenda text, it will alert the user. Default: =100= |
+| ~org-agenda-show-deadlines-next-line-p~           | Whether the deadlines are inserted on the line following an agenda entry (=t=), or on the same line (=nil=). Default: =nil=.           |
+| ~org-agenda-show-deadlines-fill-char~             | Character to fill space between the entry and the deadline. Default: =.=. =_= also works. Use a space for no fill.                   |
+| ~org-agenda-show-deadlines-date-format~           | Format to use to display the deadline date. Follows the format of =format-time-string=. Default: =%Y-%m-%d= i.e., =YYYY-MM-DD=.        |
+| ~org-agenda-show-deadlines-final-change-function~ | A user-supplied function to apply any changes to the deadline string before it is inserted. Default: =nil=.                        |
+
 
 
 
