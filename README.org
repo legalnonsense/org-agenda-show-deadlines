@@ -1,0 +1,23 @@
+#+TITLE: org-agenda-show-deadlines
+
+Show deadlines in org-agenda buffers. 
+
+* Installation
+Put =org-agenda-show-deadlines.el= in your load path, and:
+~(require 'org-agenda-show-deadlines)~
+* Usage / Customization
+Toggle showing  deadlines with =(org-agenda-show-deadlines-mode)=. The sole effect of this the minor mode is to add a function to =org-agenda-finalize-hook=.
+
+The following variables can be customized:
+| Custom variable                                 | Description                                                                                                                            |
+| ~org-agenda-show-deadlines-column~                | The column in which the deadline will appear. If this creates a collision with agenda text, it will generate an error. =120= by default. |
+| ~org-agenda-show-deadlines-next-line-p~           | Whether the deadlines are inserted on the line following an agenda entry. =Nil= by default.                                              |
+| ~org-agenda-show-deadlines-fill-char~             | Charater to precede the deadline. =.= by default. =_= also works. Use a space for no fill.                                                 |
+| ~org-agenda-show-deadlines-date-format~           | Format to use to display the deadline date. Follows the format of =format-time-string=. ="%Y-%m-%d"=, i.e., =YYYY-MM-DD= by default.         |
+| ~org-agenda-show-deadlines-final-change-function~ | A user-supplied function to apply any changes to the deadline string before it is inserted. =Nil= by default.                            |
+
+
+
+
+
+
