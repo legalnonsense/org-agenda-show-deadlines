@@ -3,11 +3,12 @@
 Show deadlines in org-agenda buffers. 
 
 * Installation
-Put =org-agenda-show-deadlines.el= in your load path, and:
-~(require 'org-agenda-show-deadlines)~
-* Usage / Customization
-Toggle showing  deadlines with =(org-agenda-show-deadlines-mode)=. The sole effect of this the minor mode is to add a function to =org-agenda-finalize-hook=.
-
+This package requires [[https://github.com/alphapapa/ts.el][ts.el]]
+With that installed, put =org-agenda-show-deadlines.el= in your load path, and:
+~(require 'org-agenda-show-deadlines)~ or use =use-package= to the same effect. 
+* Usage
+Toggle showing  deadlines with =(org-agenda-show-deadlines-mode)=. The sole effect of this the minor mode is to add a function to =org-agenda-finalize-hook=. 
+* Customization
 The following variables can be customized:
 | Custom variable                                 | Description                                                                                                                            |
 | ~org-agenda-show-deadlines-column~                | The column in which the deadline will appear. If this creates a collision with agenda text, it will generate an error. =120= by default. |
