@@ -4,6 +4,7 @@ Show deadlines in org-agenda buffers.
 
 * Installation / Requirements
 This package requires [[https://github.com/alphapapa/ts.el][ts.el]]. 
+
 Put =org-agenda-show-deadlines.el= in your load path, and ~(require 'org-agenda-show-deadlines)~ or use =use-package= to the same effect. 
 * Usage
 Toggle showing  deadlines with =(org-agenda-show-deadlines-mode)=. The sole effect of this the minor mode is to add a function to =org-agenda-finalize-hook= which will insert the deadline text before the agenda is finalized. 
