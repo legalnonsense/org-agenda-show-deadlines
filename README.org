@@ -9,7 +9,7 @@ Put =org-agenda-show-deadlines.el= in your load path, and ~(require 'org-agenda-
 * Usage
 Toggle showing  deadlines with =(org-agenda-show-deadlines-mode)=. The sole effect of this the minor mode is to add a function to =org-agenda-finalize-hook= which will insert the deadline text before the agenda is finalized. 
 
-Enabling the mode will not refresh the agenda, refresh manually when toggling on or off. 
+Enabling the mode will not refresh the agenda. Refresh manually when toggling on or off. 
 * Examples
 Defaults:
 [[file:images/defaults-example.png]]
