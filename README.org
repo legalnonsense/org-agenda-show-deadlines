@@ -16,10 +16,12 @@ Here are three examples run on the following agenda file:
  * TODO Pay bills
 DEADLINE: <2020-01-31 Fri>
  * TODO Finalize stuff
- DEADLINE: <2020-02-08 Sat>
+DEADLINE: <2020-02-08 Sat>
 #+end_src 
 The first shows the default settings. 
+
 The second shows: ~(setq org-agenda-show-deadlines-date-format  "%B %d, %Y")~ 
+
 The third shows: ~(setq org-agenda-show-deadlines-fill-char " ")~, ~(setq org-agenda-show-deadlines-next-line-p t)~, and ~(setq org-agenda-show-deadlines-column 14)~:
 [[file:images/example.png]]
 
