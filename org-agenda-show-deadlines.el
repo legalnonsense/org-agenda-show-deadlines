@@ -59,3 +59,5 @@
     (remove-hook 'org-agenda-finalize-hook 'org-agenda-show-deadlines--insert-deadlines)))
 
 (provide 'org-agenda-show-deadlines)
+
+
