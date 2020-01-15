@@ -11,6 +11,7 @@ Defaults:
 
 
 With: ~(setq org-agenda-show-deadlines-date-format  "%B %d, %Y")~ 
+
 and ~(setq org-agenda-show-deadlines-fill-char " ")~:
 [[file:images/format-date-and-fill-char-example.png]]
 
