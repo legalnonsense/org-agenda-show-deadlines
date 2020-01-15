@@ -7,7 +7,7 @@ This package requires [[https://github.com/alphapapa/ts.el][ts.el]].
 * Examples
 
 Defaults:
-[[file:images/defaults-example.png][Defaults]]
+[[file:images/defaults-example.png]]
 
 
 With: ~(setq org-agenda-show-deadlines-date-format  "%B %d, %Y")~ and ~(setq org-agenda-show-deadlines-fill-char " ")~:
