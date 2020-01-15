@@ -7,24 +7,24 @@
 (defcustom org-agenda-show-deadlines-column 100
   "Column to align the deadlines in the agenda buffer. Will throw error if the deadline column collides with agenda text")
 
-(setq org-agenda-show-deadlines-next-line-p t)
-(setq org-agenda-show-deadlines-next-line-p nil)
+;; (setq org-agenda-show-deadlines-next-line-p t)
+;; (setq org-agenda-show-deadlines-next-line-p nil)
 (defcustom org-agenda-show-deadlines-next-line-p nil
   "Non-nil inserts deadlines on the line after the entry")
 
-(setq org-agenda-show-deadlines-fill-char "_")
-(setq org-agenda-show-deadlines-fill-char ".")
-(setq org-agenda-show-deadlines-fill-char " ")
+;; (setq org-agenda-show-deadlines-fill-char "_")
+;; (setq org-agenda-show-deadlines-fill-char ".")
+;; (setq org-agenda-show-deadlines-fill-char " ")
 (defcustom org-agenda-show-deadlines-fill-char "."
   "Fill character between entry and deadline. Use a space for no fill. \"_\" also works.")
 
-(setq org-agenda-show-deadlines-date-format "%B %d, %Y")
+;; (setq org-agenda-show-deadlines-date-format "%B %d, %Y") 
 (defcustom org-agenda-show-deadlines-date-format  "%Y-%m-%d"
   "Time format for deadlines. In the format of `format-time-string'."
   :type  'string)
 
-(setq org-agenda-show-deadlines-change-function 'org-agenda-show-deadlines--trim)
-(setq org-agenda-show-deadlines-change-function nil)
+;; (setq org-agenda-show-deadlines-change-function 'org-agenda-show-deadlines--trim)
+;; (setq org-agenda-show-deadlines-change-function nil)
 (defcustom org-agenda-show-deadlines-final-change-function nil
   "Function called on the deadline string before it is displayed. If `nil', then do nothing. The date string is the only argument")
 
