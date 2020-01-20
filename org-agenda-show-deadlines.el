@@ -16,7 +16,7 @@
   "Time format for deadlines. In the format of `format-time-string'."
   :type  'string)
 
-(defcustom org-agenda-show-deadlines-final-change-function nil
+(defcustom org-agenda-show-deadlines-change-function nil
   "Function called on the deadline string before it is displayed. If `nil', then do nothing. The date string is the only argument")
 
 (defun org-agenda-show-deadlines--insert-deadlines ()
@@ -48,6 +48,20 @@
 	   until (save-excursion (forward-line)  ;; `org-agenda-next-item' does not return `nil' at the last item
 				 (eobp))))	 ;; so need to check it manually.
 
+
+
+;; (defun org-agenda-show-deadlines-toggle ()
+;;   (interactive)
+
+;;   (when (string= (buffer-name) "*Org Agenda")
+;;     (org-agenda-redo))
+
+;;   (defun org-agenda-show-deadlines-disable ()
+;;     (interactive)
+;;     (remove-hook 'org-agenda-finalize-hook 'org-agenda-show-deadlines--insert-deadlines)
+;;     (when (string= (buffer-name) "*Org Agenda")
+;;       (org-agenda-redo)))
+
 ;;;###autoload
 (define-minor-mode org-agenda-show-deadlines-mode
   "Show deadlines in org-agenda buffers"
@@ -55,9 +69,12 @@
   " OASD"
   nil
   (if org-agenda-show-deadlines-mode
-      (add-hook 'org-agenda-finalize-hook 'org-agenda-show-deadlines--insert-deadlines t)
-    (remove-hook 'org-agenda-finalize-hook 'org-agenda-show-deadlines--insert-deadlines)))
+      (progn 
+	(add-hook 'org-agenda-finalize-hook 'org-agenda-show-deadlines--insert-deadlines t)
+	(define-key org-agenda-mode-map (kbd "C-d") 'org-agenda-show-deadlines))
+    (remove-hook 'org-agenda-finalize-hook 'org-agenda-show-deadlines--insert-deadlines)
+    (define-key org-agenda-mode-map (kbd "C-d") 'delete-char)))
 
-(provide 'org-agenda-show-deadlines)
+  (provide 'org-agenda-show-deadlines)
 
 
