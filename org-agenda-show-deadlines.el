@@ -2,6 +2,7 @@
 
 (require 'ts)
 (require 'subr-x)
+(require 'dash)
 
 (defcustom org-agenda-show-deadlines-column 100
   "Column to align the deadlines in the agenda buffer. Will throw error if the deadline column collides with agenda text")
@@ -33,8 +34,8 @@
 				 (padding-string (if org-agenda-show-deadlines-next-line-p
 						     (concat "\n" (make-string org-agenda-show-deadlines-column
 									       padding-char))
-						   (make-string ((lambda (col) ;;  Of there's going to be a collision with agenda text,
-								   (if (< col 0);; tell the user to fix it. 
+						   (make-string ((lambda (col)   ;; If there's going to be a collision with agenda text,
+								   (if (< col 0) ;; tell the user to fix it. 
 								       (signal 'user-error
 									       `(,(concat "The headings are too long. "
 											  "Increase the value `org-agenda-show-deadlines-column' "
@@ -48,20 +49,6 @@
 	   until (save-excursion (forward-line)  ;; `org-agenda-next-item' does not return `nil' at the last item
 				 (eobp))))	 ;; so need to check it manually.
 
-
-
-;; (defun org-agenda-show-deadlines-toggle ()
-;;   (interactive)
-
-;;   (when (string= (buffer-name) "*Org Agenda")
-;;     (org-agenda-redo))
-
-;;   (defun org-agenda-show-deadlines-disable ()
-;;     (interactive)
-;;     (remove-hook 'org-agenda-finalize-hook 'org-agenda-show-deadlines--insert-deadlines)
-;;     (when (string= (buffer-name) "*Org Agenda")
-;;       (org-agenda-redo)))
-
 ;;;###autoload
 (define-minor-mode org-agenda-show-deadlines-mode
   "Show deadlines in org-agenda buffers"
@@ -70,10 +57,10 @@
   nil
   (if org-agenda-show-deadlines-mode
       (progn 
-	(add-hook 'org-agenda-finalize-hook 'org-agenda-show-deadlines--insert-deadlines t)
-	(define-key org-agenda-mode-map (kbd "C-d") 'org-agenda-show-deadlines))
-    (remove-hook 'org-agenda-finalize-hook 'org-agenda-show-deadlines--insert-deadlines)
-    (define-key org-agenda-mode-map (kbd "C-d") 'delete-char)))
+	(add-hook 'org-agenda-finalize-hook #'org-agenda-show-deadlines--insert-deadlines t)
+	(define-key org-agenda-mode-map (kbd "C-d") #'org-agenda-show-deadlines))
+    (remove-hook 'org-agenda-finalize-hook #'org-agenda-show-deadlines--insert-deadlines)
+    (define-key org-agenda-mode-map (kbd "C-d") #'delete-char)))
 
   (provide 'org-agenda-show-deadlines)
 
