@@ -20,6 +20,9 @@
 (defcustom org-agenda-show-deadlines-change-function nil
   "Function called on the deadline string before it is displayed. If `nil', then do nothing. The date string is the only argument")
 
+(defcustom org-agenda-show-deadlines-show-active-timestamps-p t
+  "Show active timestamps in the agenda if no deadline is available.")
+
 ;; (defun org-agenda-show-deadlines--insert-deadlines ()
 ;;   (goto-char (point-min))
 ;;   (cl-loop with padding-char = (string-to-char org-agenda-show-deadlines-fill-char)
@@ -55,11 +58,12 @@
   (cl-loop with padding-char = (string-to-char org-agenda-show-deadlines-fill-char)
 	   do (progn (org-agenda-next-item 1)
 		     (when-let* ((time (or (org-agenda-with-point-at-orig-entry nil (cdar (org-entry-properties (point) "DEADLINE")))
-					   (funcall (lambda ()
-						      (let ((ts (org-agenda-with-point-at-orig-entry nil
-												     (cdar (org-entry-properties (point) "TIMESTAMP")))))
-							(when (ts-p ts)
-							  ts))))))
+					   (when org-agenda-show-deadlines-show-active-timestamps-p
+					     (funcall (lambda ()
+							(let ((timestamp (org-agenda-with-point-at-orig-entry nil
+													      (cdar (org-entry-properties (point) "TIMESTAMP")))))
+							  (when (string-match (org-re-timestamp 'active) timestamp)
+							    timestamp)))))))
 				 (time (->> time
 					    (ts-parse-org)
 					    (ts-format org-agenda-show-deadlines-date-format)
@@ -83,6 +87,8 @@
 		       (insert padding-string time)))
 	   until (save-excursion (forward-line)  ;; `org-agenda-next-item' does not return `nil' at the last item
 				 (eobp))))	 ;; so need to check it manually.
+
+
 
 ;;;###autoload
 (define-minor-mode org-agenda-show-deadlines-mode

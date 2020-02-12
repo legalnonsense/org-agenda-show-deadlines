@@ -2,6 +2,8 @@
 
 Show deadlines in org-agenda buffers. 
 
+If ~org-agenda-show-deadlines-show-active-timestamps-p~ is set to ~t~, then show the first active timestamp if there is no deadline. 
+
 * Installation / Requirements
 This package requires [[https://github.com/alphapapa/ts.el][ts.el]]. 
 
