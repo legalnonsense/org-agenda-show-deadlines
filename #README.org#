@@ -1,0 +1,50 @@
+#+TITLE: org-agenda-show-deadlines
+
+Show deadlines in org-agenda buffers. 
+
+* Installation / Requirements
+This package requires [[https://github.com/alphapapa/ts.el][ts.el]]. 
+
+Put =org-agenda-show-deadlines.el= in your load path, and ~(require 'org-agenda-show-deadlines)~ or use =use-package= to the same effect. 
+* Usage
+Toggle showing  deadlines with =(org-agenda-show-deadlines-mode)=. The sole effect of this the minor mode is to add a function to =org-agenda-finalize-hook= which will insert the deadline text before the agenda is finalized. 
+
+Enabling the mode will not refresh the agenda. Refresh manually when toggling on or off. 
+* Examples
+Here are three examples run on the following agenda file:
+#+begin_src org 
+ * TODO Pay bills
+DEADLINE: <2020-01-31 Fri>
+ * TODO Finalize stuff
+ DEADLINE: <2020-02-08 Sat>
+#+end_src 
+The first shows the default settings. 
+The seco
+With: ~(setq org-agenda-show-deadlines-date-format  "%B %d, %Y")~ 
+
+and ~(setq org-agenda-show-deadlines-fill-char " ")~:
+[[file:images/format-date-and-fill-char-example.png]]
+
+With ~(setq org-agenda-show-deadlines-next-line-p t)~ 
+
+and ~(setq org-agenda-show-deadlines-column 14)~
+
+and ~(setq org-agenda-show-deadlines-fill-char " ")~:
+[[file:images/next-line-example.png]]
+
+
+* Customization
+The following variables can be customized:
+| Custom variable                                 | Description                                                                                                                      |
+| ~org-agenda-show-deadlines-column~                | The column in which the deadline will appear. If this creates a collision with agenda text, it will alert the user. Default: =100= |
+| ~org-agenda-show-deadlines-next-line-p~           | Whether the deadlines are inserted on the line following an agenda entry (=t=), or on the same line (=nil=). Default: =nil=.           |
+| ~org-agenda-show-deadlines-fill-char~             | Character to fill space between the entry and the deadline. Default: =.=. =_= also works. Use a space for no fill.                   |
+| ~org-agenda-show-deadlines-date-format~           | Format to use to display the deadline date. Follows the format of =format-time-string=. Default: =%Y-%m-%d= i.e., =YYYY-MM-DD=.        |
+| ~org-agenda-show-deadlines-final-change-function~ | A user-supplied function to apply any changes to the deadline string before it is inserted. Default: =nil=.                        |
+
+
+
+
+
+
+
