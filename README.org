@@ -1,7 +1,6 @@
 #+TITLE: org-agenda-show-deadlines
 
 Show deadlines in org-agenda buffers. 
-Update: This package now also shows active timestamps and deadlines. Deadlines take precedence. Not planning to add a toggle to turn off deadlines since I do not anticipate using that feature. 
 
 * Installation / Requirements
 This package requires [[https://github.com/alphapapa/ts.el][ts.el]]. 
