@@ -23,70 +23,47 @@
 (defcustom org-agenda-show-deadlines-show-active-timestamps-p t
   "Show active timestamps in the agenda if no deadline is available.")
 
-;; (defun org-agenda-show-deadlines--insert-deadlines ()
-;;   (goto-char (point-min))
-;;   (cl-loop with padding-char = (string-to-char org-agenda-show-deadlines-fill-char)
-;; 	   do (progn (org-agenda-next-item 1)
-;; 		     (when-let* ((deadline (org-agenda-with-point-at-orig-entry nil (cdar (org-entry-properties (point) "DEADLINE"))))
-;; 				 (deadline (->> deadline
-;; 						(ts-parse-org)
-;; 						(ts-format org-agenda-show-deadlines-date-format)
-;; 						((lambda (d) (if (fboundp org-agenda-show-deadlines-change-function)
-;; 								 (funcall org-agenda-show-deadlines-change-function d)
-;; 							       d)))))
-;; 				 (padding-string (if org-agenda-show-deadlines-next-line-p
-;; 						     (concat "\n" (make-string org-agenda-show-deadlines-column
-;; 									       padding-char))
-;; 						   (make-string ((lambda (col)   ;; If there's going to be a collision with agenda text,
-;; 								   (if (< col 0) ;; tell the user to fix it. 
-;; 								       (signal 'user-error
-;; 									       `(,(concat "The headings are too long. "
-;; 											  "Increase the value `org-agenda-show-deadlines-column' "
-;; 											  "to avoid collisions.")))
-;; 								     col))
-;; 								 (- org-agenda-show-deadlines-column (save-excursion (end-of-line)
-;; 														     (current-column))))
-;; 								padding-char))))
-;; 		       (end-of-line)
-;; 		       (insert padding-string deadline)))
-;; 	   until (save-excursion (forward-line)  ;; `org-agenda-next-item' does not return `nil' at the last item
-;; 				 (eobp))))	 ;; so need to check it manually.
-
 (defun org-agenda-show-deadlines--insert-deadlines ()
   "Insert deadlines and active timestamps into agenda view. Deadlines take precedence over timestamps"
   (goto-char (point-min))
-  (cl-loop with padding-char = (string-to-char org-agenda-show-deadlines-fill-char)
-	   do (progn (org-agenda-next-item 1)
-		     (when-let* ((time (or (org-agenda-with-point-at-orig-entry nil (cdar (org-entry-properties (point) "DEADLINE")))
-					   (when org-agenda-show-deadlines-show-active-timestamps-p
-					     (funcall (lambda ()
-							(let ((timestamp (org-agenda-with-point-at-orig-entry nil
-													      (cdar (org-entry-properties (point) "TIMESTAMP")))))
-							  (when (string-match (org-re-timestamp 'active) timestamp)
-							    timestamp)))))))
-				 (time (->> time
-					    (ts-parse-org)
-					    (ts-format org-agenda-show-deadlines-date-format)
-					    ((lambda (d) (if (fboundp org-agenda-show-deadlines-change-function)
-							     (funcall org-agenda-show-deadlines-change-function d)
-							   d)))))
-				 (padding-string (if org-agenda-show-deadlines-next-line-p
-						     (concat "\n" (make-string org-agenda-show-deadlines-column
-									       padding-char))
-						   (make-string ((lambda (col)   ;; If there's going to be a collision with agenda text,
-								   (if (< col 0) ;; tell the user to fix it. 
-								       (signal 'user-error
-									       `(,(concat "The headings are too long. "
-											  "Increase the value `org-agenda-show-deadlines-column' "
-											  "to avoid collisions.")))
-								     col))
-								 (- org-agenda-show-deadlines-column (save-excursion (end-of-line)
-														     (current-column))))
-								padding-char))))
-		       (end-of-line)
-		       (insert padding-string time)))
-	   until (save-excursion (forward-line)  ;; `org-agenda-next-item' does not return `nil' at the last item
-				 (eobp))))	 ;; so need to check it manually.
+  (cl-loop with
+	   padding-char = (string-to-char org-agenda-show-deadlines-fill-char)
+	   do
+	   (org-agenda-next-item 1)
+	   (when-let*
+	       ((time (or (org-agenda-with-point-at-orig-entry
+			   nil (cdar (org-entry-properties (point) "DEADLINE")))
+			  (when org-agenda-show-deadlines-show-active-timestamps-p
+			    (funcall (lambda ()
+				       (let ((timestamp (org-agenda-with-point-at-orig-entry
+							 nil
+							 (cdar (org-entry-properties (point) "TIMESTAMP")))))
+					 (when (string-match (org-re-timestamp 'active) timestamp)
+					   timestamp)))))))
+		(time (->> time
+			   (ts-parse-org)
+			   (ts-format org-agenda-show-deadlines-date-format)
+			   ((lambda (d) (if (fboundp org-agenda-show-deadlines-change-function)
+					    (funcall org-agenda-show-deadlines-change-function d)
+					  d)))))
+		(padding-string (if org-agenda-show-deadlines-next-line-p
+				    (concat "\n" (make-string org-agenda-show-deadlines-column
+							      padding-char))
+				  (make-string ((lambda (col)   ;; If there's going to be a collision with agenda text,
+						  (if (< col 0) ;; tell the user to fix it. 
+						      (signal 'user-error
+							      `(,(concat "The headings are too long. "
+									 "Increase the value `org-agenda-show-deadlines-column' "
+									 "to avoid collisions.")))
+						    col))
+						(- org-agenda-show-deadlines-column (save-excursion (end-of-line)
+												    (current-column))))
+					       padding-char))))
+	     (end-of-line)
+	     (insert padding-string time))
+	   until
+	   (save-excursion (forward-line)  ; `org-agenda-next-item' does not return `nil' at the last item
+			   (eobp))))        ; so need to check it manually.
 
 
 
