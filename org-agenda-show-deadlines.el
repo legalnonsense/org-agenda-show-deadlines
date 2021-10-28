@@ -1,5 +1,6 @@
 ;;; org-agenda-show-deadlines.el --- Show deadlines in agenda views  -*- lexical-binding: t; -*-
-
+(require 'org)
+(require 'org-agenda)
 (require 'ts)
 (require 'subr-x)
 (require 'dash)
@@ -25,8 +26,8 @@
 
 (defun org-agenda-show-deadlines--insert-deadlines ()
   "Insert deadlines and active timestamps into agenda view. Deadlines take precedence over timestamps"
+  (goto-char (point-min))
   (when (org-agenda-next-item 1)
-    (goto-char (point-min))
     (cl-loop with
 	     padding-char = (string-to-char org-agenda-show-deadlines-fill-char)
 	     do
@@ -63,8 +64,9 @@
 	       (end-of-line)
 	       (insert padding-string time))
 	     until
-	     (save-excursion (forward-line)  ; `org-agenda-next-item' does not return `nil' at the last item
-			     (eobp)))))        ; so need to check it manually.
+	     (save-excursion (forward-line)  ;; `org-agenda-next-item' does not return `nil' at the last item
+			     (eobp))))       ;; so need to check it manually.
+  (goto-char (point-min)))
 
 
 
